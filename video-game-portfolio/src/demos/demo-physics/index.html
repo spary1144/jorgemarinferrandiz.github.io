@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Demo - Video Game Portfolio</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body>
+    <header>
+        <!-- Include header component here -->
+    </header>
+
+    <main>
+        <h1>Physics Demo</h1>
+        <p>Welcome to the physics demo project. This project showcases various physics simulations and interactions implemented in a game environment.</p>
+        
+        <h2>Features</h2>
+        <ul>
+            <li>Realistic physics interactions</li>
+            <li>Gravity and collision detection</li>
+            <li>Interactive elements</li>
+        </ul>
+
+        <h2>How to Run the Demo</h2>
+        <p>To run the demo, please ensure you have a compatible browser. Click the button below to start the demo:</p>
+        <button id="start-demo">Start Demo</button>
+
+        <div id="demo-container"></div>
+    </main>
+
+    <footer>
+        <!-- Include footer component here -->
+    </footer>
+
+    <script src="../../scripts/main.js"></script>
+    <script>
+        document.getElementById('start-demo').addEventListener('click', function() {
+            // Logic to start the physics demo
+            const demoContainer = document.getElementById('demo-container');
+            demoContainer.innerHTML = '<p>The demo is now running...</p>';
+            // Additional demo initialization code goes here
+        });
+    </script>
+</body>
+</html>
