@@ -1,74 +1,95 @@
-// Función para cargar un componente HTML en un contenedor
+// Cargar componente HTML en un contenedor
 async function loadComponent(containerId, file) {
   const container = document.getElementById(containerId);
   try {
     const response = await fetch(file);
     if (!response.ok) throw new Error(response.status);
-    const html = await response.text();
-    container.innerHTML = html;
+    container.innerHTML = await response.text();
   } catch (err) {
     container.innerHTML = `<p>Error al cargar ${file}: ${err}</p>`;
   }
 }
 
-// Función para habilitar scroll suave
+// Scroll suave
 function enableSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault(); // evita el salto brusco
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
 
-// Animación fade-in al hacer scroll
+// Animación fade-in
 function revealOnScroll() {
   const items = document.querySelectorAll('.timeline-item');
   const windowHeight = window.innerHeight;
-
   items.forEach(item => {
     const elementTop = item.getBoundingClientRect().top;
-    const revealPoint = 150; // px antes de llegar a la ventana
+    const revealPoint = 150;
     if (elementTop < windowHeight - revealPoint) {
       item.classList.add('visible');
     }
   });
 }
 
-// Control del modal “Show more”
+// Control dinámico del modal “Show more”
 function setupExperienceModal() {
-  const modal = document.getElementById('experience-modal');
-  const modalContent = document.querySelector('#experience-modal .modal-content');
-  const closeBtn = document.getElementById('close-modal');
+  // Maneja botones que apuntan a modales ya presentes (data-modal="#id" o data-modal="id")
+  document.querySelectorAll('.show-more-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const modalRef = button.getAttribute('data-modal');
+      if (modalRef) {
+        const id = modalRef.startsWith('#') ? modalRef.slice(1) : modalRef;
+        const modal = document.getElementById(id);
+        if (!modal) {
+          console.warn('Modal no encontrado:', modalRef);
+          return;
+        }
+        modal.classList.add('active');
 
-  // Botones “Show more”
-  document.querySelectorAll('.show-more-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const details = btn.getAttribute('data-details');
-      modalContent.querySelector('.modal-body').textContent = details;
-      modal.classList.add('active');
+        // cerrar con botones dentro del modal
+        modal.querySelectorAll('.close-btn, .modal-close, .close').forEach(cb =>
+          cb.addEventListener('click', () => modal.classList.remove('active'))
+        );
+
+        // cerrar al hacer click fuera del contenido
+        modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); }, { once: false });
+        return;
+      }
+
+      // Fallback: si el botón no referencia un modal por id, intenta rellenar un modal "global"
+      const globalModal = document.querySelector('.modal:not([id])') || document.querySelector('.modal');
+      if (!globalModal) return;
+
+      const modalContent = globalModal.querySelector('.modal-content');
+      const title = button.getAttribute('data-title') || button.textContent;
+      const description = button.getAttribute('data-description') || '';
+      const bullets = JSON.parse(button.getAttribute('data-bullets') || '[]');
+      const github = button.getAttribute('data-github');
+
+      modalContent.innerHTML = `
+        <button class="modal-close">&times;</button>
+        <h3>${title}</h3>
+        <hr class="modal-separator">
+        <p>${description}</p>
+        ${bullets.length ? `<ul class="modal-bullets">${bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
+        ${github ? `<a href="${github}" target="_blank" class="modal-github-btn">See on GitHub</a>` : ''}
+      `;
+
+      globalModal.classList.add('active');
+      const closeBtn = modalContent.querySelector('.modal-close');
+      if (closeBtn) closeBtn.addEventListener('click', () => globalModal.classList.remove('active'));
+      globalModal.addEventListener('click', e => { if (e.target === globalModal) globalModal.classList.remove('active'); });
     });
-  });
-
-  // Cerrar modal
-  closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-  modal.addEventListener('click', e => {
-    if (e.target === modal) modal.classList.remove('active');
   });
 }
 
-// Ejecutar al hacer scroll y al cargar página
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
-
-// Cargar componentes y preparar interactividad
+// Inicialización de la página
 async function initPage() {
   await loadComponent('header', 'components/header.html');
 
-  // Contenedor principal donde se cargan secciones
   const mainContent = document.getElementById('main-content');
   const sections = await Promise.all([
     fetch('components/hero-about.html').then(r => r.text()),
@@ -78,16 +99,12 @@ async function initPage() {
   ]);
 
   mainContent.innerHTML = sections.join('');
-
   await loadComponent('footer', 'components/footer.html');
 
-  // Activar scroll suave y animaciones
   enableSmoothScroll();
-  revealOnScroll();
-
-  // Configurar los botones de “Show more”
   setupExperienceModal();
+  revealOnScroll();
 }
 
-// Inicializar la página
-initPage();
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', initPage);

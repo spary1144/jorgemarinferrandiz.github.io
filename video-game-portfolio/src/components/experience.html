@@ -1,6 +1,6 @@
 <section id="experience" class="section experience">
   <h2>Experience</h2>
-  
+
   <div class="timeline">
     <div class="timeline-item left">
       <h3>Gameplay, Sound, Systems, Tools Programmer</h3>
@@ -11,37 +11,87 @@
     </div>
 
     <div class="timeline-item right">
-      <h3>Game Generalist Programmer</h3>
-      <span>Self-Employed | 2023 - 2025</span>
-      <p>Developed 2D and 3D games using C++ and Lua, focusing on mechanics, UI, and performance.</p>
-      <p>Implemented game systems, sound tools, and AI utilities.</p>
+      <h3>Gameplay, Sound, Systems, Release Programmer</h3>
+      <span>PopCorn Games | Into The Crops | 2022 - 2023</span>
+      <p>Horror Game developed in C++/OpenGL/IMGUI and FMod.</p>
+      <p>Implemented game systems, sound programming, and AI utilities.</p>
       <button class="show-more-btn" data-modal="modal2">Show More</button>
     </div>
 
-    <!-- Puedes añadir más timeline-item alternando left/right -->
+    <div class="timeline-item left">
+      <h3>Release Engineer</h3>
+      <span>GameHouse Inc. | 2022 - 2024</span>
+      <p>Development and maintenance of internal tools for testing and automation.</p>
+      <p>Worked with C# and .NET environment. Python and Batch scripting.</p>
+      <button class="show-more-btn" data-modal="modal3">Show More</button>
+    </div>
   </div>
 
   <!-- ===== Modales de detalle ===== -->
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <button class="close-btn" aria-label="Close modal">×</button>
       <h3>Zulo Interactive / Lady Umbrella</h3>
+      <hr>
+
+      <ul class="modal-bullets">
+        <li>Gameplay features with flexible scaling using interfaces.</li>
+        <li>Batch files to automate project cleanup and builds.</li>
+        <li>Health component managing full damage and recovery systems.</li>
+        <li>Upgrade component for the main weapon, fully encapsulated logic.</li>
+        <li>Audio integration using FMod.</li>
+        <li>Panning bullet system to enhance immersion in combat.</li>
+      </ul>
+
       <p>
         During my time at Zulo Interactive I collaborated with designers, artists, and programmers 
         to implement gameplay features, tools, and audio systems for Lady Umbrella. 
         My focus was on gameplay responsiveness, debugging utilities, and improving production tools.
+        I also worked on automating tedious tasks to streamline workflows and enhance team efficiency.
       </p>
+
+      <a href="https://github.com/spary1144/lady-umbrella_g2_2425" target="_blank" class="github-btn">See on GitHub</a>
     </div>
   </div>
 
   <div id="modal2" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>Freelance Game Developer</h3>
+      <button class="close-btn" aria-label="Close modal">×</button>
+      <h3>Into The Crops</h3>
+      <hr>
+
+      <ul class="modal-bullets">
+        <li>Developed core gameplay mechanics using C++ and Lua.</li>
+        <li>Created debugging and workflow tools to improve team efficiency.</li>
+        <li>Implemented sound integration and audio systems using FMod.</li>
+      </ul>
+
       <p>
-        As a freelance developer I built prototypes and gameplay systems using C++ and Lua. 
-        I specialized in modular scripting, performance optimization, and tool development for content creation.
+        During this development, I was responsible for implementing core gameplay systems such as 
+        collision detection and response, AI behaviors, and audio systems.
+        I also configured the Makefile for multi-platform builds and optimized 
+        several systems for smoother performance on Windows and Linux.
       </p>
+
+      <a href="https://github.com/spary1144/IntoTheCrops" target="_blank" class="github-btn">See on GitHub</a>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close modal">×</button>
+      <h3>GameHouse Inc.</h3>
+      <hr>
+      <p>
+        I worked as part of the Release Engineering team at GameHouse Inc., 
+        developing internal utilities for automation, testing, and build processes.
+        My work focused on improving tool stability, performance, and overall maintainability.
+      </p>
+      <ul class="modal-bullets">
+        <li>Developed C# and .NET tools to test and automate game validation workflows.</li>
+        <li>Refactored and maintained the internal testing suite “TestTools”.</li>
+        <li>Created Python and Batch scripts to support QA automation.</li>
+      </ul>
     </div>
   </div>
 </section>
