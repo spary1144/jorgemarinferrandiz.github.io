@@ -1,0 +1,29 @@
+{
+  "projects": [
+    {
+      "title": "Physics Simulation",
+      "description": "A physics simulation project that demonstrates various physics concepts using real-time calculations.",
+      "link": "demos/demo-physics/index.html"
+    },
+    {
+      "title": "AI Game Agent",
+      "description": "An AI-driven game agent that learns and adapts to player behavior, showcasing advanced AI techniques.",
+      "link": "demos/demo-ai/index.html"
+    },
+    {
+      "title": "Platformer Game",
+      "description": "A 2D platformer game developed using Unity, featuring engaging gameplay mechanics and levels.",
+      "link": "https://github.com/username/platformer-game"
+    },
+    {
+      "title": "Puzzle Game",
+      "description": "A puzzle game that challenges players with various brain teasers and logic puzzles.",
+      "link": "https://github.com/username/puzzle-game"
+    },
+    {
+      "title": "Multiplayer Shooter",
+      "description": "An online multiplayer shooter game that allows players to compete against each other in real-time.",
+      "link": "https://github.com/username/multiplayer-shooter"
+    }
+  ]
+}
