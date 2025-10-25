@@ -13,12 +13,20 @@
 
     <main>
         <h1>Projects</h1>
-        <div id="project-list"></div>
+        <div id="project-list" class="project-grid"></div>
     </main>
 
     <footer>
         <!-- Include footer component here -->
     </footer>
+
+    <!-- Modal local para proyectos -->
+    <div id="project-modal" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+        <button class="close-btn" aria-label="Cerrar">✕</button>
+        <div id="project-modal-body"></div>
+      </div>
+    </div>
 
     <script src="scripts/projects.js"></script>
 </body>
