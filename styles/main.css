@@ -76,7 +76,7 @@ main {
 .section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--accent-color);
+  color: #ffffff;
 }
 
 .section p {
@@ -107,17 +107,36 @@ main {
   margin-top: 2rem;
 }
 
+/* Tarjetas translúcidas con borde sutil */
 .project-card {
-  background-color: var(--card-bg);
-  border: 1px solid #21262d;
+  background-color: rgba(0, 0, 0, 0.35); /* negro translúcido */
+  color: #fff;                           /* texto blanco */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde ligero */
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);   /* sombra visible */
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
+/* Hover mantiene contraste */
 .project-card:hover {
   transform: translateY(-5px);
-  border-color: var(--accent-color);
+  border-color: rgba(88,166,255,0.8); /* borde azul al pasar mouse */
+}
+
+/* Textos internos */
+.project-card h3,
+.project-card p {
+  color: #fff;
+  margin: 0.5rem 1rem 1rem 1rem;
+}
+
+/* Imagen mantiene estilo */
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .project-media {
@@ -133,15 +152,6 @@ main {
   display: block;
 }
 
-.project-card h3 {
-  margin: 1rem;
-  color: #fff;
-}
-
-.project-card p {
-  margin: 0 1rem 1rem 1rem;
-  color: #b1bac4;
-}
 
 .about {
   text-align: center;
@@ -153,11 +163,43 @@ main {
 }
 
 footer {
-  text-align: center;
-  padding: 2rem;
-  border-top: 1px solid #21262d;
-  color: #8b949e;
+  background-color: #0d1117; /* fondo oscuro elegante */
+  color: #c9d1d9;            /* texto claro */
+  text-align: center;         /* centra todo */
+  padding: 2.5rem 1rem;       /* más espacio vertical */
+  border-top: 1px solid #30363d; /* borde superior sutil */
   font-size: 0.9rem;
+}
+
+footer .footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* espacio entre párrafo y links */
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+footer .social-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+footer .social-links li a {
+  color: #58a6ff;       /* azul brillante */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+footer .social-links li a:hover {
+  color: #ff7a59;       /* acento naranja al pasar el ratón */
 }
 
 .hero-about {
@@ -172,13 +214,13 @@ footer {
 
 .hero-about h1 {
   font-size: 3rem;
-  color: var(--accent-color);
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
 .hero-about h2 {
   font-size: 1.5rem;
-  color: #b1bac4;
+  color: #ffffff;
 }
 
 /* About: full-bleed background y layout ajustado */
@@ -607,4 +649,77 @@ footer {
 #experience .timeline-item .muted,
 #experience .modal .muted {
   color: var(--muted, #6B7A86);
+}
+
+.bg-iframe-wrap {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* fondo detrás del contenido */
+  pointer-events: none; /* el fondo no bloquea clicks */
+}
+
+.bg-poster {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background-color: rgba(0,0,0,.7); /* negro translúcido, ajusta opacidad */
+  z-index: 1; /* encima del fondo, debajo del contenido */
+  pointer-events: none;
+}
+
+/* Tarjetas transparentes con borde sutil */
+#experience .timeline-item {
+  background-color: rgba(0, 0, 0, 0.35); /* negro translúcido */
+  color: #fff;                           /* texto blanco */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* borde ligero */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);   /* sombra más visible */
+}
+
+/* Encabezados y spans en blanco */
+#experience .timeline-item h3,
+#experience .timeline-item span,
+#experience .timeline-item p {
+  color: #fff;
+}
+
+/* Botón “View details” adaptado al fondo oscuro */
+#experience .timeline-item .show-more-btn {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+#experience .timeline-item .show-more-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Modales también en fondo oscuro para consistencia */
+#experience .modal .modal-content {
+  background-color: rgba(0,0,0,0.9);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Botón de GitHub en modal */
+#experience .modal .github-btn {
+  background-color: #58a6ff;
+  color: #fff;
+}
+
+#experience .modal .github-btn:hover {
+  background-color: #1f6feb;
 }
