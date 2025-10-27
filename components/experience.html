@@ -7,48 +7,56 @@
       <span>Zulo Interactive | Lady Umbrella | 2025</span>
       <p>Worked in a 40-person team developing gameplay systems, tools, and mechanics.</p>
       <p>Improved workflows and built debugging utilities to speed up production.</p>
-      <button class="show-more-btn" data-modal="modal1">Show More</button>
+      <button class="show-more-btn" data-modal="modal1">View details</button>
     </div>
 
     <div class="timeline-item right">
       <h3>Gameplay, Sound, Systems, Release Programmer</h3>
       <span>PopCorn Games | Into The Crops | 2022 - 2023</span>
-      <p>Horror Game developed in C++/OpenGL/IMGUI and FMod.</p>
+      <p>Horror game developed in C++/OpenGL/IMGUI and FMOD.</p>
       <p>Implemented game systems, sound programming, and AI utilities.</p>
-      <button class="show-more-btn" data-modal="modal2">Show More</button>
+      <button class="show-more-btn" data-modal="modal2">View details</button>
     </div>
 
     <div class="timeline-item left">
       <h3>Release Engineer</h3>
       <span>GameHouse Inc. | 2022 - 2024</span>
       <p>Development and maintenance of internal tools for testing and automation.</p>
-      <p>Worked with C# and .NET environment. Python and Batch scripting.</p>
-      <button class="show-more-btn" data-modal="modal3">Show More</button>
+      <p>Worked with C# and .NET; authored Python and Batch scripts for QA and builds.</p>
+      <button class="show-more-btn" data-modal="modal3">View details</button>
+    </div>
+
+    <div class="timeline-item right">
+      <h3>Audio Programming Bootcamp</h3>
+      <span>Wwise · FMOD — Intensive Course | 2024</span>
+      <p>Attended an intensive bootcamp focused on interactive audio programming using Wwise and FMOD.</p>
+      <p>Implemented audio events, RTPCs and integration logic to adapt audio to game states.</p>
+      <button class="show-more-btn" data-modal="modal4">View details</button>
     </div>
   </div>
 
-  <!-- ===== Modales de detalle ===== -->
+  <!-- ===== Detail modals ===== -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <button class="close-btn" aria-label="Close modal">×</button>
       <h3>Zulo Interactive / Lady Umbrella</h3>
       <hr>
 
+      <p>
+        During my time at Zulo Interactive I collaborated with designers, artists and programmers
+        to implement gameplay features, tools and audio systems for Lady Umbrella.
+        My focus was on gameplay responsiveness, debugging utilities and improving production tools.
+        I also automated repetitive tasks to streamline workflows and increase team efficiency.
+      </p>
+
       <ul class="modal-bullets">
         <li>Gameplay features with flexible scaling using interfaces.</li>
-        <li>Batch files to automate project cleanup and builds.</li>
-        <li>Health component managing full damage and recovery systems.</li>
-        <li>Upgrade component for the main weapon, fully encapsulated logic.</li>
-        <li>Audio integration using FMod.</li>
-        <li>Panning bullet system to enhance immersion in combat.</li>
+        <li>Batch scripts to automate project cleanup and builds.</li>
+        <li>Health component handling damage and recovery systems.</li>
+        <li>Upgrade component for the main weapon with encapsulated logic.</li>
+        <li>Audio integration using FMOD.</li>
+        <li>Panning bullet system to enhance combat immersion.</li>
       </ul>
-
-      <p>
-        During my time at Zulo Interactive I collaborated with designers, artists, and programmers 
-        to implement gameplay features, tools, and audio systems for Lady Umbrella. 
-        My focus was on gameplay responsiveness, debugging utilities, and improving production tools.
-        I also worked on automating tedious tasks to streamline workflows and enhance team efficiency.
-      </p>
 
       <a href="https://github.com/spary1144/lady-umbrella_g2_2425" target="_blank" class="github-btn">See on GitHub</a>
     </div>
@@ -60,18 +68,17 @@
       <h3>Into The Crops</h3>
       <hr>
 
+      <p>
+        During this project I implemented core gameplay systems such as collision detection and response,
+        AI behaviours, and audio systems. I configured the build system for multi-platform targets
+        and optimized several systems for smoother performance on Windows and Linux.
+      </p>
+
       <ul class="modal-bullets">
         <li>Developed core gameplay mechanics using C++ and Lua.</li>
         <li>Created debugging and workflow tools to improve team efficiency.</li>
-        <li>Implemented sound integration and audio systems using FMod.</li>
+        <li>Implemented sound integration and audio systems using FMOD.</li>
       </ul>
-
-      <p>
-        During this development, I was responsible for implementing core gameplay systems such as 
-        collision detection and response, AI behaviors, and audio systems.
-        I also configured the Makefile for multi-platform builds and optimized 
-        several systems for smoother performance on Windows and Linux.
-      </p>
 
       <a href="https://github.com/spary1144/IntoTheCrops" target="_blank" class="github-btn">See on GitHub</a>
     </div>
@@ -82,16 +89,40 @@
       <button class="close-btn" aria-label="Close modal">×</button>
       <h3>GameHouse Inc.</h3>
       <hr>
+
       <p>
-        I worked as part of the Release Engineering team at GameHouse Inc., 
-        developing internal utilities for automation, testing, and build processes.
-        My work focused on improving tool stability, performance, and overall maintainability.
+        I worked as part of the Release Engineering team at GameHouse Inc.,
+        developing internal utilities for automation, testing and build processes.
+        My work focused on improving tool stability, performance and maintainability.
       </p>
+
       <ul class="modal-bullets">
-        <li>Developed C# and .NET tools to test and automate game validation workflows.</li>
+        <li>Developed C# and .NET tools to automate game validation workflows.</li>
         <li>Refactored and maintained the internal testing suite “TestTools”.</li>
         <li>Created Python and Batch scripts to support QA automation.</li>
       </ul>
+    </div>
+  </div>
+
+  <div id="modal4" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close modal">×</button>
+      <h3>Audio for Video games Bootcamp — Wwise &amp; FMOD</h3>
+      <hr>
+
+      <p>
+        I participated in an intensive bootcamp focused on interactive audio with Wwise and FMOD.
+        During the course I developed and integrated audio events, managed RTPC parameters,
+        and designed logic for dynamic audio response tied to gameplay.
+      </p>
+
+      <ul class="modal-bullets">
+        <li>Creation and integration of events in FMOD and Wwise in Unreal Engine and Unity.</li>
+        <li>Implementation of RTPCs and blend states to adapt audio to gameplay.</li>
+        <li>Programming callbacks and synchronization with gameplay.</li>
+        <li>Different reverb snapshots to simulate closed spaces sound behaviors.</li>
+      </ul>
+      
     </div>
   </div>
 </section>

@@ -1,8 +1,12 @@
 :root {
-  --bg-color: #0d1117;
-  --text-color: #c9d1d9;
-  --accent-color: #58a6ff;
-  --card-bg: #161b22;
+  --bg-color: #F4F8FB;        /* fondo general claro */
+  --text-color: #0F1724;      /* texto principal oscuro y legible */
+  --muted: #6B7A86;           /* texto secundario */
+  --accent-color: #3B82F6;    /* azul vibrante para botones/enlaces */
+  --accent-2: #FF7A59;       /* acento secundario cálido (naranja/coral) */
+  --card-bg: #FFFFFF;         /* fondo de tarjetas */
+  --card-border: #E6EEF8;     /* borde suave para tarjetas */
+  --glass: rgba(20,40,60,0.04);
   --font-main: 'Inter', 'Segoe UI', sans-serif;
 }
 
@@ -32,13 +36,14 @@ body {
   align-items: center;
   padding: 1rem 2rem;
   z-index: 100;
-  border-bottom: 1px solid #21262d;
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  color: #fff; /* asegurar texto visible en el header oscuro */
 }
 
 .logo {
   font-size: 1.4rem;
   font-weight: bold;
-  color: var(--accent-color);
+  color: #fff; /* visible en la barra */
   letter-spacing: 0.5px;
 }
 
@@ -50,7 +55,7 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--text-color);
+  color: #fff; /* enlaces en blanco/claros dentro del header */
   transition: color 0.3s ease;
 }
 
@@ -176,42 +181,69 @@ footer {
   color: #b1bac4;
 }
 
+/* About: full-bleed background y layout ajustado */
+.about.solid-bg {
+  /* fondo ocupa todo el ancho de la sección (override de .section) */
+  background-color: rgba(4, 8, 20, 0.88);
+  width: 100%;
+  max-width: none;
+  margin: 24px 0;
+  padding: 48px 0; /* espacio vertical amplio */
+  box-sizing: border-box;
+  border-radius: 0; /* si quieres bordes redondeados en los laterales puedes ajustar */
+}
+
+/* contenedor centrado dentro del fondo full-bleed */
 .about-container {
   display: flex;
+  gap: 32px;
   align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  max-width: 1100px;   /* ancho del contenido centrado */
+  margin: 0 auto;
+  padding: 0 28px;     /* separación lateral desde el borde de la pantalla */
 }
 
+/* texto: alineado a la izquierda y "más echado" hacia la izquierda */
+.about-text {
+  flex: 1 1 68%;
+  color: var(--text-color, #e6eef8);
+  text-align: left;      /* asegurar justificado a la izquierda */
+  padding-right: 28px;   /* espacio entre texto e imagen */
+}
+
+/* imagen a la derecha mantiene tamaño fijo */
 .about-image {
-  flex: 1;
-  min-width: 250px;
+  flex: 0 0 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .about-image img {
   width: 100%;
-  border-radius: 12px;
-  border: 1px solid #21262d;
+  max-width: 320px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 28px rgba(2,6,23,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
-.about-text {
-  flex: 2;
-  min-width: 250px;
+/* Responsive: en móvil apilar, imagen arriba si se desea */
+@media (max-width: 768px) {
+  .about.solid-bg {
+    padding: 28px 0;
+    border-radius: 12px; /* opcional */
+  }
+  .about-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 18px;
+  }
+  .about-image { order: -1; width: 100%; flex: 0 0 auto; }
+  .about-image img { max-width: 260px; }
+  .about-text { padding-right: 0; }
 }
 
-.about-text h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--accent-color);
-}
-
-.about-text p {
-  color: #b1bac4;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-
-/* TIMELINE: línea central y puntos colocados directamente sobre la línea (dots generados por JS) */
 .timeline{
   position: relative;
   max-width: 900px;
@@ -500,4 +532,79 @@ footer {
 #header, main, #footer, .navbar {
   position: relative;
   z-index: 2;
+}
+
+/* Floating action buttons (bottom-left) */
+.fixed-actions {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1400;
+  pointer-events: none; /* container ignores clicks, children accept them */
+}
+
+.fixed-actions a.fa-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  background: var(--accent-color);
+  box-shadow: 0 6px 18px rgba(59,130,246,0.15);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  border: 0;
+}
+
+/* different color for mail if desired */
+.fixed-actions a.fa-mail { background: var(--accent-2); box-shadow: 0 6px 18px rgba(255,122,89,0.12); }
+
+/* subtle hover/focus */
+.fixed-actions a.fa-btn:hover,
+.fixed-actions a.fa-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  outline: none;
+}
+
+/* ensure SVG uses currentColor and scales nicely */
+.fixed-actions a.fa-btn svg { width: 20px; height: 20px; display: block; color: #fff; }
+
+/* hide on very small screens if desired */
+@media (max-width: 420px) {
+  .fixed-actions { left: 10px; bottom: 10px; gap: 8px; }
+  .fixed-actions a.fa-btn { width: 44px; height: 44px; border-radius: 8px; }
+}
+
+/* Forzar texto oscuro en Experience y modales */
+#experience,
+#experience .timeline,
+#experience .timeline-item,
+#experience .timeline-item h3,
+#experience .timeline-item span,
+#experience .timeline-item p,
+#experience .timeline-item .show-more-btn {
+  color: var(--text-color, #0b1724);
+}
+
+/* Modales: texto oscuro y buena legibilidad */
+#experience .modal,
+#experience .modal .modal-content,
+#experience .modal .modal-content h3,
+#experience .modal .modal-content p,
+#experience .modal .modal-bullets li,
+#experience .modal .github-btn {
+  color: var(--text-color, #0b1724);
+}
+
+/* Asegura contraste en elementos secundarios si usan color muted */
+#experience .timeline-item .muted,
+#experience .modal .muted {
+  color: var(--muted, #6B7A86);
 }
