@@ -723,3 +723,12 @@ footer .social-links li a:hover {
 #experience .modal .github-btn:hover {
   background-color: #1f6feb;
 }
+#background-video {
+  position: fixed;   /* para que quede detrás de todo */
+  top: 0;
+  left: 0;
+  width: 100vw;      /* ancho de toda la pantalla */
+  height: 100vh;     /* alto de toda la pantalla */
+  object-fit: cover;  /* mantiene proporción y rellena pantalla */
+  z-index: -1;       /* detrás de tu contenido */
+}
