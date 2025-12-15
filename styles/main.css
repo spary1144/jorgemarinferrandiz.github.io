@@ -155,7 +155,7 @@ main {
 
 /* Tarjetas translúcidas con borde sutil */
 .project-card {
-  background-color: rgba(0, 0, 0, 0.35); /* negro translúcido */
+  background-color: var(--card-bg); /* gris oscuro sólido */
   color: #fff;                           /* texto blanco */
   border: 1px solid rgba(255, 255, 255, 0.15); /* borde ligero */
   border-radius: 10px;
@@ -269,6 +269,8 @@ footer .social-links li a:hover {
   height: 80vh;
   text-align: center;
   padding: 0 2rem;
+  width: 100%;
+  max-width: none;
 }
 
 .hero-about h1 {
@@ -291,6 +293,7 @@ footer .social-links li a:hover {
   padding: 48px 0; /* espacio vertical amplio */
   box-sizing: border-box;
   border-radius: 0; /* si quieres bordes redondeados en los laterales puedes ajustar */
+  background-color: var(--card-bg);
 }
 
 /* contenedor centrado dentro del fondo full-bleed */
