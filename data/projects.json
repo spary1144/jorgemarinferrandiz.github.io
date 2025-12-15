@@ -1,29 +1,31 @@
 {
   "projects": [
     {
-      "title": "Physics Simulation",
-      "description": "A physics simulation project that demonstrates various physics concepts using real-time calculations.",
-      "link": "demos/demo-physics/index.html"
+      "id": "p-lady",
+      "title": "Lady Umbrella",
+      "date": "2024",
+      "role": "Gameplay, Systems, Tools, Audio Programmer",
+      "short": "Unreal Engine C++ Action - Adventure game.",
+      "img": "images/LadyUmbrella.png",
+      "github": "https://github.com/spary1144/Lady-Umbrella"
     },
     {
-      "title": "AI Game Agent",
-      "description": "An AI-driven game agent that learns and adapts to player behavior, showcasing advanced AI techniques.",
-      "link": "demos/demo-ai/index.html"
+      "id": "p-crops",
+      "title": "Into the Crops",
+      "date": "2022",
+      "role": "Gameplay & Sound Programmer",
+      "short": "C++/OpenGL/FMod/IMGUI Horror game",
+      "img": "images/IntoTheCrops.png",
+      "github": "https://github.com/spary1144/IntoTheCrops"
     },
     {
-      "title": "Platformer Game",
-      "description": "A 2D platformer game developed using Unity, featuring engaging gameplay mechanics and levels.",
-      "link": "https://github.com/username/platformer-game"
-    },
-    {
-      "title": "Puzzle Game",
-      "description": "A puzzle game that challenges players with various brain teasers and logic puzzles.",
-      "link": "https://github.com/username/puzzle-game"
-    },
-    {
-      "title": "Multiplayer Shooter",
-      "description": "An online multiplayer shooter game that allows players to compete against each other in real-time.",
-      "link": "https://github.com/username/multiplayer-shooter"
+      "id": "p-darkness",
+      "title": "Into the Darkness",
+      "date": "2022",
+      "role": "Programmer",
+      "short": "Assembly runner game made for Amstrad Z80",
+      "img": "images/IntoTheDarkness.png",
+      "github": "https://github.com/spary1144/IntoTheDarkness"
     }
   ]
 }

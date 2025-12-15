@@ -1,12 +1,12 @@
 :root {
-  --bg-color: #F4F8FB;        /* fondo general claro */
-  --text-color: #0F1724;      /* texto principal oscuro y legible */
-  --muted: #6B7A86;           /* texto secundario */
-  --accent-color: #3B82F6;    /* azul vibrante para botones/enlaces */
-  --accent-2: #FF7A59;       /* acento secundario cálido (naranja/coral) */
-  --card-bg: #FFFFFF;         /* fondo de tarjetas */
-  --card-border: #E6EEF8;     /* borde suave para tarjetas */
-  --glass: rgba(20,40,60,0.04);
+  --bg-color: #0f0f23;        /* fondo oscuro azul-negro para tema gaming */
+  --text-color: #f8fafc;      /* texto principal casi blanco */
+  --muted: #94a3b8;           /* texto secundario gris claro */
+  --accent-color: #7c3aed;    /* púrpura vibrante */
+  --accent-2: #06b6d4;       /* cian */
+  --card-bg: #1e293b;         /* fondo de tarjetas gris oscuro */
+  --card-border: #334155;     /* borde */
+  --glass: rgba(248,250,252,0.04);
   --font-main: 'Inter', 'Segoe UI', sans-serif;
 }
 
@@ -18,6 +18,9 @@
 
 body {
   background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+  background-size: 20px 20px;
   color: var(--text-color);
   font-family: var(--font-main);
   line-height: 1.6;
@@ -29,22 +32,31 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(13, 17, 23, 0.9);
-  backdrop-filter: blur(10px);
+  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   z-index: 100;
-  border-bottom: 1px solid rgba(0,0,0,0.14);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   color: #fff; /* asegurar texto visible en el header oscuro */
 }
 
 .logo {
-  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 2rem;
   font-weight: bold;
-  color: #fff; /* visible en la barra */
+  color: #fff;
   letter-spacing: 0.5px;
+}
+
+.logo .role {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #fff;
+  margin-top: 2px;
 }
 
 .nav-links {
@@ -76,12 +88,12 @@ main {
 .section h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .section p {
   font-size: 1.1rem;
-  color: #b1bac4;
+  color: var(--muted);
 }
 
 .home {
@@ -91,20 +103,54 @@ main {
 
 .home h1 {
   font-size: 2.5rem;
-  color: #fff;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 .home p {
   font-size: 1.2rem;
-  color: #b1bac4;
+  color: var(--muted);
 }
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 2rem;
+}
+
+.project-grid a {
+  text-decoration: none;
+}
+
+/* Technical Experience */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.skill {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: background 0.3s ease;
+}
+
+.skill:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive para proyectos */
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Tarjetas translúcidas con borde sutil */
@@ -116,6 +162,9 @@ main {
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);   /* sombra visible */
   transition: transform 0.3s ease, border-color 0.3s ease;
+  min-height: 350px; /* reducir altura para más cuadradas */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Hover mantiene contraste */
@@ -131,6 +180,16 @@ main {
   margin: 0.5rem 1rem 1rem 1rem;
 }
 
+.project-card .role {
+  font-weight: bold;
+  color: var(--accent-color);
+  margin: 0.25rem 1rem;
+}
+
+.project-card .short {
+  margin: 0.5rem 1rem;
+}
+
 /* Imagen mantiene estilo */
 .project-media img {
   width: 100%;
@@ -141,7 +200,7 @@ main {
 
 .project-media {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
 }
 
@@ -226,7 +285,6 @@ footer .social-links li a:hover {
 /* About: full-bleed background y layout ajustado */
 .about.solid-bg {
   /* fondo ocupa todo el ancho de la sección (override de .section) */
-  background-color: rgba(4, 8, 20, 0.88);
   width: 100%;
   max-width: none;
   margin: 24px 0;
@@ -268,6 +326,51 @@ footer .social-links li a:hover {
   display: block;
   box-shadow: 0 8px 28px rgba(2,6,23,0.5);
   border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Hero container */
+.hero-container {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.hero-image {
+  flex: 0 0 320px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 28px rgba(2,6,23,0.5);
+}
+
+.hero-text {
+  flex: 1;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.hero-about h2 {
+  font-size: 2rem;
+  color: var(--text-color);
+  text-align: left;
+}
+
+/* Responsive para hero */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 18px;
+  }
+  .hero-image { order: -1; width: 100%; flex: 0 0 auto; }
 }
 
 /* Responsive: en móvil apilar, imagen arriba si se desea */
@@ -576,52 +679,52 @@ footer .social-links li a:hover {
   z-index: 2;
 }
 
-/* Floating action buttons (bottom-left) */
-.fixed-actions {
-  position: fixed;
-  left: 16px;
-  bottom: 16px;
+/* Social icons in header */
+.social-icons {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  z-index: 1400;
-  pointer-events: none; /* container ignores clicks, children accept them */
+  align-items: center;
 }
 
-.fixed-actions a.fa-btn {
-  pointer-events: auto;
+.social-icons a.fa-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   color: #fff;
   text-decoration: none;
   background: var(--accent-color);
-  box-shadow: 0 6px 18px rgba(59,130,246,0.15);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
   border: 0;
 }
 
 /* different color for mail if desired */
-.fixed-actions a.fa-mail { background: var(--accent-2); box-shadow: 0 6px 18px rgba(255,122,89,0.12); }
+.social-icons a.fa-mail { background: var(--accent-2); box-shadow: 0 4px 12px rgba(255,122,89,0.12); }
 
 /* subtle hover/focus */
-.fixed-actions a.fa-btn:hover,
-.fixed-actions a.fa-btn:focus {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+.social-icons a.fa-btn:hover,
+.social-icons a.fa-btn:focus-visible {
+  /* Mantener el efecto de elevación en hover y cuando el foco es por teclado (focus-visible) */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   outline: none;
 }
 
-/* ensure SVG uses currentColor and scales nicely */
-.fixed-actions a.fa-btn svg { width: 20px; height: 20px; display: block; color: #fff; }
+.social-icons a.fa-btn:active {
+  /* Al hacer clic con ratón, restablecer para evitar que quede "flotando" */
+  transform: translateY(0);
+}
 
-/* hide on very small screens if desired */
-@media (max-width: 420px) {
-  .fixed-actions { left: 10px; bottom: 10px; gap: 8px; }
-  .fixed-actions a.fa-btn { width: 44px; height: 44px; border-radius: 8px; }
+/* ensure SVG uses currentColor and scales nicely */
+.social-icons a.fa-btn svg { width: 18px; height: 18px; display: block; color: #fff; }
+
+/* Responsive for social icons */
+@media (max-width: 768px) {
+  .social-icons { gap: 8px; }
+  .social-icons a.fa-btn { width: 32px; height: 32px; }
 }
 
 /* Forzar texto oscuro en Experience y modales */
@@ -716,8 +819,16 @@ footer .social-links li a:hover {
 
 /* Botón de GitHub en modal */
 #experience .modal .github-btn {
-  background-color: #58a6ff;
+  /* Evitar que el enlace se estire en el contenedor flex (por defecto flex items stretch) */
+  align-self: flex-start;
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--accent-color);
   color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
 }
 
 #experience .modal .github-btn:hover {
