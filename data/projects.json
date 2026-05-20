@@ -1,11 +1,23 @@
 {
   "projects": [
     {
+      "id": "p-highjump",
+      "title": "Operation Highjump: The Fall of Berlin",
+      "date": "Coming soon",
+      "role": "Programmer",
+      "short": "Unity action adventure set in the last days of World War II, blending run and gun combat, platforming and tactical missions.",
+      "stack": ["Unity", "Action Adventure", "Run and Gun"],
+      "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2455330/b36449797fda030f3845dd0f44a16c96ef9b1f4a/header.jpg?t=1778565332",
+      "url": "https://store.steampowered.com/app/2455330/Operation_Highjump_The_Fall_of_Berlin/",
+      "linkLabel": "View on Steam"
+    },
+    {
       "id": "p-lady",
       "title": "Lady Umbrella",
       "date": "2024",
       "role": "Gameplay, Systems, Tools, Audio Programmer",
-      "short": "Unreal Engine C++ Action - Adventure game.",
+      "short": "Action adventure prototype with scalable gameplay systems, tooling support and audio integration.",
+      "stack": ["Unreal Engine", "C++", "FMOD"],
       "img": "images/LadyUmbrella.png",
       "github": "https://github.com/spary1144/Lady-Umbrella"
     },
@@ -13,8 +25,9 @@
       "id": "p-crops",
       "title": "Into the Crops",
       "date": "2022",
-      "role": "Gameplay & Sound Programmer",
-      "short": "C++/OpenGL/FMod/IMGUI Horror game",
+      "role": "Gameplay and Sound Programmer",
+      "short": "Horror game prototype built with custom tech, audio systems and gameplay support tools.",
+      "stack": ["C++", "OpenGL", "IMGUI", "FMOD"],
       "img": "images/IntoTheCrops.png",
       "github": "https://github.com/spary1144/IntoTheCrops"
     },
@@ -23,7 +36,8 @@
       "title": "Into the Darkness",
       "date": "2022",
       "role": "Programmer",
-      "short": "Assembly runner game made for Amstrad Z80",
+      "short": "Retro runner built in Assembly for Amstrad Z80, focused on low-level problem solving.",
+      "stack": ["Assembly", "Z80", "Retro tech"],
       "img": "images/IntoTheDarkness.png",
       "github": "https://github.com/spary1144/IntoTheDarkness"
     }

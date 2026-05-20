@@ -1,205 +1,265 @@
-// Cargar componente HTML en un contenedor
 async function loadComponent(containerId, file) {
   const container = document.getElementById(containerId);
+
+  if (!container) {
+    return;
+  }
+
   try {
     const response = await fetch(file);
-    if (!response.ok) throw new Error(response.status);
+    if (!response.ok) {
+      throw new Error(String(response.status));
+    }
+
     container.innerHTML = await response.text();
-  } catch (err) {
-    container.innerHTML = `<p>Error al cargar ${file}: ${err}</p>`;
+  } catch (error) {
+    container.innerHTML = `<p>Error loading ${file}: ${error.message}</p>`;
   }
 }
 
-// Scroll suave
-function enableSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
-
-// Animación fade-in
-function revealOnScroll() {
-  const items = document.querySelectorAll('.timeline-item');
-  const windowHeight = window.innerHeight;
-  items.forEach(item => {
-    const elementTop = item.getBoundingClientRect().top;
-    const revealPoint = 150;
-    if (elementTop < windowHeight - revealPoint) {
-      item.classList.add('visible');
-    }
-  });
-}
-
-// Control dinámico del modal “Show more”
-function setupExperienceModal() {
-  // Maneja botones que apuntan a modales ya presentes (data-modal="#id" o data-modal="id")
-  document.querySelectorAll('.show-more-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const modalRef = button.getAttribute('data-modal');
-      if (modalRef) {
-        const id = modalRef.startsWith('#') ? modalRef.slice(1) : modalRef;
-        const modal = document.getElementById(id);
-        if (!modal) {
-          console.warn('Modal no encontrado:', modalRef);
-          return;
-        }
-        modal.classList.add('active');
-
-        // cerrar con botones dentro del modal
-        modal.querySelectorAll('.close-btn, .modal-close, .close').forEach(cb =>
-          cb.addEventListener('click', () => modal.classList.remove('active'))
-        );
-
-        // cerrar al hacer click fuera del contenido
-        modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); }, { once: false });
-        return;
-      }
-
-      // Fallback: si el botón no referencia un modal por id, intenta rellenar un modal "global"
-      const globalModal = document.querySelector('.modal:not([id])') || document.querySelector('.modal');
-      if (!globalModal) return;
-
-      const modalContent = globalModal.querySelector('.modal-content');
-      const title = button.getAttribute('data-title') || button.textContent;
-      const description = button.getAttribute('data-description') || '';
-      const bullets = JSON.parse(button.getAttribute('data-bullets') || '[]');
-      const github = button.getAttribute('data-github');
-
-      modalContent.innerHTML = `
-        <button class="modal-close">&times;</button>
-        <h3>${title}</h3>
-        <hr class="modal-separator">
-        <p>${description}</p>
-        ${bullets.length ? `<ul class="modal-bullets">${bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
-        ${github ? `<a href="${github}" target="_blank" class="modal-github-btn">See on GitHub</a>` : ''}
-      `;
-
-      globalModal.classList.add('active');
-      const closeBtn = modalContent.querySelector('.modal-close');
-      if (closeBtn) closeBtn.addEventListener('click', () => globalModal.classList.remove('active'));
-      globalModal.addEventListener('click', e => { if (e.target === globalModal) globalModal.classList.remove('active'); });
-    });
-  });
-}
-
-// Posiciona los dots de la timeline: crea .timeline-dot por cada .timeline-item
-function updateTimelineDots() {
-  const timeline = document.querySelector('.timeline');
-  if (!timeline) return;
-
-  // eliminar dots previos
-  timeline.querySelectorAll('.timeline-dot').forEach(d => d.remove());
-
-  const items = Array.from(timeline.querySelectorAll('.timeline-item'));
-  const timelineRect = timeline.getBoundingClientRect();
-  const isMobile = window.innerWidth <= 768;
-
-  items.forEach(item => {
-    const title = item.querySelector('h3') || item; // intentar alinear con h3 si existe
-    const titleRect = title.getBoundingClientRect();
-
-    // calcular top relativo al contenedor .timeline
-    const top = (titleRect.top - timelineRect.top) + (titleRect.height / 2) + timeline.scrollTop;
-
-    const dot = document.createElement('div');
-    dot.className = 'timeline-dot';
-    dot.style.top = `${Math.round(top)}px`;
-
-    if (isMobile) {
-      dot.classList.add('timeline-dot--left');
-    }
-
-    timeline.appendChild(dot);
-  });
-
-  // alterna clase útil para CSS si estamos en modo móvil
-  if (isMobile) timeline.classList.add('dots-left');
-  else timeline.classList.remove('dots-left');
-}
-
-// recalcula al cambiar tamaño, carga y cuando el contenido cambia
-window.addEventListener('resize', () => {
-  // pequeño debounce para evitar muchas llamadas en resize
-  clearTimeout(window.__timelineDotsTimeout);
-  window.__timelineDotsTimeout = setTimeout(updateTimelineDots, 120);
-});
-window.addEventListener('load', updateTimelineDots);
-window.addEventListener('DOMContentLoaded', updateTimelineDots);
-
-// ---------------------------
-// proyectos (array para escalabilidad)
-// ---------------------------
-// Cargar proyectos desde JSON
 async function loadProjects() {
   try {
-    const response = await fetch('data/projects.json');
+    const response = await fetch("data/projects.json");
+    if (!response.ok) {
+      throw new Error(String(response.status));
+    }
+
     const data = await response.json();
-    return data.projects;
-  } catch (err) {
-    console.error('Error cargando proyectos:', err);
+    return Array.isArray(data.projects) ? data.projects : [];
+  } catch (error) {
+    console.error("Error loading projects:", error);
     return [];
   }
 }
 
-// Escape básico para inyectar texto seguro en elementos
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[character]));
 }
 
-// Renderiza la grid de proyectos dentro de #project-list
-function renderProjectList(projects){
-  const container = document.getElementById('project-list');
-  if (!container) return;
-  container.innerHTML = '';
-  projects.forEach(p => {
-    const card = document.createElement('a');
-    card.href = p.github;
-    card.target = '_blank';
-    card.className = 'project-card';
+function renderProjectList(projects) {
+  const container = document.getElementById("project-list");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  projects.forEach(project => {
+    const tags = Array.isArray(project.stack)
+      ? project.stack.map(tag => `<span class="project-tag">${escapeHtml(tag)}</span>`).join("")
+      : "";
+    const projectLink = project.url || project.github || "#";
+    const projectLinkLabel = project.linkLabel || "Open repository";
+
+    const card = document.createElement("a");
+    card.className = "project-card";
+    card.href = projectLink;
+    card.target = "_blank";
+    card.rel = "noopener";
+    card.setAttribute("data-reveal", "");
     card.innerHTML = `
       <div class="project-media">
-        <img src="${p.img}" alt="${escapeHtml(p.title)}">
+        <img src="${escapeHtml(project.img)}" alt="${escapeHtml(project.title)}">
       </div>
-      <h3>${escapeHtml(p.title)} (${escapeHtml(p.date)})</h3>
-      <p class="role">${escapeHtml(p.role)}</p>
-      <div class="short" style="color:var(--muted)">${escapeHtml(p.short)}</div>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-card-year">${escapeHtml(project.date)}</span>
+          <span class="project-card-link">${escapeHtml(projectLinkLabel)}</span>
+        </div>
+        <h3>${escapeHtml(project.title)}</h3>
+        <p class="project-card-role">${escapeHtml(project.role)}</p>
+        <p class="project-card-copy">${escapeHtml(project.short)}</p>
+        <div class="project-tags">${tags}</div>
+      </div>
     `;
+
     container.appendChild(card);
   });
 }
 
-// Llamar desde la inicialización de la página después de cargar las secciones dinámicas
-// (si ya tienes initPage, añade updateTimelineDots() allí después de insertar experience)
-async function initPage() {
-  await loadComponent('header', 'components/header.html');
+function initNavigation() {
+  const body = document.body;
+  const navbar = document.querySelector(".navbar");
+  const toggle = document.querySelector(".nav-toggle");
+  const navPanel = document.getElementById("nav-panel");
 
-  const mainContent = document.getElementById('main-content');
+  if (!navbar || !toggle || !navPanel) {
+    return;
+  }
+
+  const setScrolledState = () => {
+    navbar.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+
+  const closeNavigation = () => {
+    body.classList.remove("nav-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  toggle.addEventListener("click", () => {
+    const nextState = !body.classList.contains("nav-open");
+    body.classList.toggle("nav-open", nextState);
+    toggle.setAttribute("aria-expanded", String(nextState));
+  });
+
+  navPanel.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeNavigation);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeNavigation();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1080) {
+      closeNavigation();
+    }
+  });
+
+  window.addEventListener("scroll", setScrolledState, { passive: true });
+  setScrolledState();
+}
+
+function initModals() {
+  const body = document.body;
+  const modalButtons = document.querySelectorAll(".show-more-btn");
+  const modals = Array.from(document.querySelectorAll(".modal"));
+
+  if (!modalButtons.length || !modals.length) {
+    return;
+  }
+
+  const closeModal = modal => {
+    modal.classList.remove("active");
+    if (!document.querySelector(".modal.active")) {
+      body.classList.remove("modal-open");
+    }
+  };
+
+  const openModal = modal => {
+    body.classList.add("modal-open");
+    modal.classList.add("active");
+  };
+
+  modalButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const targetId = button.getAttribute("data-modal");
+      if (!targetId) {
+        return;
+      }
+
+      const modal = document.getElementById(targetId.replace(/^#/, ""));
+      if (modal) {
+        openModal(modal);
+      }
+    });
+  });
+
+  modals.forEach(modal => {
+    modal.querySelectorAll(".close-btn, .modal-close, .close").forEach(button => {
+      button.addEventListener("click", () => closeModal(modal));
+    });
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal(modal);
+      }
+    });
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    modals.forEach(modal => {
+      if (modal.classList.contains("active")) {
+        closeModal(modal);
+      }
+    });
+  });
+}
+
+function initRevealAnimations() {
+  const revealElements = document.querySelectorAll("[data-reveal]");
+
+  if (!revealElements.length) {
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach(element => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: "0px 0px -40px 0px"
+  });
+
+  revealElements.forEach(element => observer.observe(element));
+}
+
+function setCurrentYear() {
+  const yearNode = document.getElementById("current-year");
+  if (yearNode) {
+    yearNode.textContent = String(new Date().getFullYear());
+  }
+}
+
+async function loadSection(file) {
+  const response = await fetch(file);
+  if (!response.ok) {
+    throw new Error(`Failed to load ${file}: ${response.status}`);
+  }
+
+  return response.text();
+}
+
+async function initPage() {
+  await loadComponent("header", "components/header.html");
+
+  const mainContent = document.getElementById("main-content");
+  if (!mainContent) {
+    return;
+  }
+
   const sections = await Promise.all([
-    fetch('components/hero-about.html').then(r => r.text()),
-    fetch('components/projects.html').then(r => r.text()),
-    fetch('components/technical-experience.html').then(r => r.text()),
-    fetch('components/experience.html').then(r => r.text()),
-    fetch('components/about.html').then(r => r.text())
+    loadSection("components/hero-about.html"),
+    loadSection("components/projects.html"),
+    loadSection("components/technical-experience.html"),
+    loadSection("components/experience.html"),
+    loadSection("components/about.html")
   ]);
 
-  mainContent.innerHTML = sections.join('');
-  await loadComponent('footer', 'components/footer.html');
+  mainContent.innerHTML = sections.join("");
+  await loadComponent("footer", "components/footer.html");
 
-  // Cargar y renderizar proyectos desde JSON
   const projects = await loadProjects();
   renderProjectList(projects);
 
-  enableSmoothScroll();
-  setupExperienceModal();
-  revealOnScroll();
-
-  // generar y posicionar los dots tras cargar el contenido
-  updateTimelineDots();
+  initNavigation();
+  initModals();
+  initRevealAnimations();
+  setCurrentYear();
 }
 
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', initPage);
+window.addEventListener("DOMContentLoaded", initPage);
